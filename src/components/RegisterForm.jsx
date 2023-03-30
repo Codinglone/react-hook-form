@@ -7,7 +7,13 @@ const RegisterForm = () => {
   const onErrors = (errors) => console.log(errors);
 
   const registerOptions = {
-    name: { required: "Name is required" },
+    name: { 
+        required: "Name is required",
+        maxLength: {
+            value: 30,
+            message: "Name must not be greater than 30 characters"
+        }
+    },
     email: { required: "Email is required" },
     password: {
         required: "Password is required",
