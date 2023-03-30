@@ -5,13 +5,26 @@ const RegisterForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const handleRegistration = (data) => console.log(data);
   const onErrors = (errors) => console.log(errors);
+
+  const registerOptions = {
+    name: { required: "Name is required" },
+    email: { required: "Email is required" },
+    password: {
+        required: "Password is required",
+        minLength: {
+            value: 8,
+            message: "Password must have at least 8 characters"
+        }
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit(handleRegistration, onErrors)}>
       <div>
         <label>Name</label>
         <input
           name="name"
-          {...register("name", { required: "Name is required!" })}
+          {...register("name", registerOptions.name)}
         />
         <p style={{color: "red"}}>
         {errors.name && errors.name.message}
@@ -22,7 +35,7 @@ const RegisterForm = () => {
         <input
           type="email"
           name="email"
-          {...register("email", { required: "E-mail is required!" })}
+          {...register("email", registerOptions.email)}
         />
         <p style={{color: "red"}}>
         {errors.email && errors.email.message}
@@ -33,7 +46,7 @@ const RegisterForm = () => {
         <input
           type="password"
           name="password"
-          {...register("password", { required: "Password is required!" })}
+          {...register("password", registerOptions.password)}
         />
         <p style={{color: "red"}}>
         {errors.password && errors.password.message}
