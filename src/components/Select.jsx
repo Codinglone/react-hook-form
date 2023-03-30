@@ -1,7 +1,7 @@
 import {useForm, Controller} from "react-hook-form"
 import Select from "react-select"
 const SelectForm = () => {
-  const { register, handleSubmit, errors, control } = useForm({
+  const { register, handleSubmit,formState: { errors }, control } = useForm({
     mode: "onChange"
   }) 
 
@@ -17,8 +17,8 @@ const SelectForm = () => {
   const onSuccess = data => console.log(data);
 
   return (
-    <form onSubmit={handleSubmit(onSuccess)}>
-        <div>
+    <form onSubmit={handleSubmit(onSuccess)} className="container">
+        <div className="row">
             <label>Your Role</label>
             <Controller
                 name="role"
@@ -26,14 +26,14 @@ const SelectForm = () => {
                 defaultValue=""
                 rules={registerOptions.role}
                 render={({ field }) => (
-                    <Select options={selectOptions} {...field} label="Text field" />
+                    <Select options={selectOptions} className="col-3" {...field} label="Text field" />
                 )}
             />
             <small className="text-danger">
-                    {errors?.role && errors.role.message} hey
+                    {errors?.role && errors.role.message}
             </small>
         </div>
-        <button>Submit</button>
+        <button className="btn btn-primary">Submit</button>
     </form>
   )
 }
